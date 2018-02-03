@@ -82,13 +82,17 @@ implement wclfil {l} (pf | inp, p, c) =
     loop(pf | inp, p, c, 0)
   end
 
-fun line_count(s : string) : int =
+fun count_char(s : string, c : char) : int =
   let
     var inp: FILEref = fopen_ref_exn(s, file_mode_r)
     val (pfat, pfgc | p) = malloc_gc(g1i2u(BUFSZ))
     prval () = pfat := b0ytes2bytes_v(pfat)
-    var res = wclfil(pfat | inp, p, $UN.cast2int('\n'))
+    var res = wclfil(pfat | inp, p, $UN.cast2int(c))
     val () = mfree_gc(pfat, pfgc | p)
   in
     res
   end
+
+// Haskell: length . lines . fmap readFile 
+fun line_count(s : string) : int =
+  count_char(s, '\n')
