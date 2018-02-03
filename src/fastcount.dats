@@ -21,10 +21,8 @@ fun rawmemchr {l:addr}{m:int}(pf : bytes_v(l, m) | p : ptr(l), c : int) :
   [ l2 : addr | l+m > l2 ] (bytes_v(l, l2-l),bytes_v(l2, l+m-l2) | ptr(l2)) =
   "mac#atslib_rawmemchr"
 
-(* ****** ****** *)
 #define BUFSZ (16*1024)
 
-(* ****** ****** *)
 extern
 fun freadc {l:addr} (pf : !bytes_v(l, BUFSZ) | inp : FILEref, p : ptr(l), c : char) : size_t
 
@@ -36,7 +34,6 @@ implement freadc (pf | inp, p, c) =
     n
   end
 
-(* ****** ****** *)
 extern
 fun wclbuf {l:addr}{n:int} (pf : !bytes_v(l, n) | p : ptr(l), pz : ptr, c : int, res : int) :
   int
@@ -62,7 +59,6 @@ implement wclbuf (pf | p, pz, c, res) =
       end
   end
 
-(* ****** ****** *)
 extern
 fun wclfil {l:addr} (pf : !bytes_v(l, BUFSZ) | inp : FILEref, p : ptr(l), c : int) : int
 
@@ -86,7 +82,6 @@ implement wclfil {l} (pf | inp, p, c) =
     loop(pf | inp, p, c, 0)
   end
 
-(* ****** ****** *)
 fun line_count(s : string) : int =
   let
     var inp: FILEref = fopen_ref_exn(s, file_mode_r)
