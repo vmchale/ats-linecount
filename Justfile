@@ -1,2 +1,0 @@
-valgrind:
-    valgrind ./target/test
