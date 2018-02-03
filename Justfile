@@ -3,7 +3,7 @@ test:
     @./target/test src/fastcount.dats
 
 bench:
-    bench "./target/test test/data/ulysses.txt" "wc -l test/data/ulysses.txt" "./target/test src/fastcount.dats" "wc -l src/fastcount.dats"
+    bench "./target/lc test/data/ulysses.txt" "wc -l test/data/ulysses.txt" "./target/lc src/fastcount.dats" "wc -l src/fastcount.dats"
 
 valgrind:
-    valgrind ./target/test src/lib.dats
+    valgrind ./target/lc src/lib.dats

@@ -6,7 +6,7 @@ in pkg //
   { bin = 
     [ dbin //
       { src = "src/test.dats"
-      , target = "target/test"
+      , target = "target/lc"
       }
     ]
     , compiler = [0,3,9]
