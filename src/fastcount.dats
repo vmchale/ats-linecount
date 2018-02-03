@@ -21,7 +21,7 @@ fun rawmemchr {l:addr}{m:int}(pf : bytes_v(l, m) | p : ptr(l), c : int) :
   [ l2 : addr | l+m > l2 ] (bytes_v(l, l2-l),bytes_v(l2, l+m-l2) | ptr(l2)) =
   "mac#atslib_rawmemchr"
 
-#define BUFSZ (16*1024)
+#define BUFSZ (32*1024)
 
 extern
 fun freadc {l:addr} (pf : !bytes_v(l, BUFSZ) | inp : FILEref, p : ptr(l), c : char) : size_t
