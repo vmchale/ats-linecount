@@ -1,4 +1,3 @@
-#include "src/lib.dats"
 #include "src/fastcount.dats"
 
 implement main0 (argc, argv) =
