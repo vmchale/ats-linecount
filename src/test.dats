@@ -1,7 +1,6 @@
-#include "src/fastcount.dats"
+#include "lines.dats"
 
 implement main0 (argc, argv) =
   {
-    val () = (if argc >= 2 then
-      (println!(line_count(argv[1]), " ", argv[1])))
+    val () = (println!(line_count("test/data/ulysses.txt"), " test/data/ulysses.txt"))
   }

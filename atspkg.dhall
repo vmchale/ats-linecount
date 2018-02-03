@@ -3,10 +3,10 @@ in
 let dbin = https://raw.githubusercontent.com/vmchale/atspkg/master/pkgs/default-bin.dhall
 
 in pkg //
-  { bin = 
+  { test = 
     [ dbin //
       { src = "src/test.dats"
-      , target = "target/lc"
+      , target = "target/test"
       }
     ]
     , compiler = [0,3,9]
