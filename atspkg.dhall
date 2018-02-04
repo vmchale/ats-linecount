@@ -9,7 +9,4 @@ in pkg //
       , target = "target/test"
       }
     ]
-    , compiler = [0,3,9]
-    , version = [0,3,9]
-    , ccompiler = "gcc"
   }
