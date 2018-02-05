@@ -18,7 +18,7 @@ extern void *rawmemchr(const void *s, int c);
 
 extern
 fun rawmemchr {l:addr}{m:int}(pf : bytes_v(l, m) | p : ptr(l), c : int) :
-  [ l2 : addr | l+m > l2 ] (bytes_v(l, l2-l),bytes_v(l2, l+m-l2) | ptr(l2)) =
+  [ l2 : addr | l+m > l2 ] (bytes_v(l, l2-l), bytes_v(l2, l+m-l2) | ptr(l2)) =
   "mac#atslib_rawmemchr"
 
 #define BUFSZ (32*1024)
