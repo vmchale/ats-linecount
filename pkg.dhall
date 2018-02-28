@@ -1,6 +1,6 @@
-let dep = https://raw.githubusercontent.com/vmchale/atspkg/master/dhall/default-pkg.dhall
+let prelude = https://raw.githubusercontent.com/vmchale/atspkg/master/dhall/atspkg-prelude.dhall
 
-in dep //
+in prelude.dep //
   { libName = "linecount"
   , dir = ".atspkg/contrib"
   , url = "https://github.com/vmchale/ats-linecount/archive/0.2.4.tar.gz"
