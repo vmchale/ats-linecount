@@ -3,18 +3,18 @@ let prelude = https://raw.githubusercontent.com/vmchale/atspkg/master/ats-pkg/dh
 in prelude.default //
   { test = 
     [ prelude.bin //
-      { src = "src/test.dats"
+      { src = "test/test.dats"
       , target = "target/test"
       , libs = [ "unistring" ]
       }
     ]
-  -- , libraries =
-  --   [
-  --     prelude.staticLib //
-  --       { name = "linecount"
-  --       , src = [ "src/test.dats" ]
-  --       , libTarget = "target/lib/liblinecount.a"
-  --       }
-  --   ]
+  , libraries =
+    [
+      prelude.staticLib //
+        { name = "linecount"
+        , src = [ "lines.dats" ]
+        , libTarget = "target/lib/liblinecount.a"
+        }
+    ]
   , clib = prelude.mapPlainDeps [ "unistring" ]
   }

@@ -102,6 +102,11 @@ extern
 fun utf_bytes(s : !Strptr1) : size_t =
   "mac#u8_strlen"
 
+// Takes as an argument the file path.
+extern
+fun line_count(string) : int =
+  "mac#"
+
 fun utf_length(s : !Strptr1) : size_t =
   let
     var n = utf_bytes(s)
@@ -109,7 +114,5 @@ fun utf_length(s : !Strptr1) : size_t =
     utf_bounded_length(s, n)
   end
 
-// TODO u8_mbsnlen for charcter counts.
-// Haskell: length . lines . fmap readFile 
-fun line_count(s : string) : int =
+implement line_count (s) =
   count_char(s, '\n')
