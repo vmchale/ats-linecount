@@ -5,6 +5,16 @@ in prelude.default //
     [ prelude.bin //
       { src = "src/test.dats"
       , target = "target/test"
+      , libs = [ "unistring" ]
       }
     ]
+  -- , libraries =
+  --   [
+  --     prelude.staticLib //
+  --       { name = "linecount"
+  --       , src = [ "src/test.dats" ]
+  --       , libTarget = "target/lib/liblinecount.a"
+  --       }
+  --   ]
+  , clib = prelude.mapPlainDeps [ "unistring" ]
   }
