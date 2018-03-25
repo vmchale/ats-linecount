@@ -1,8 +1,8 @@
 let prelude = https://raw.githubusercontent.com/vmchale/atspkg/master/ats-pkg/dhall/atspkg-prelude.dhall
 
-in prelude.default //
+in prelude.default ⫽ 
   { test = 
-    [ prelude.bin //
+    [ prelude.bin ⫽ 
       { src = "test/test.dats"
       , target = "target/test"
       , libs = [ "unistring" ]
@@ -10,11 +10,12 @@ in prelude.default //
     ]
   , libraries =
     [
-      prelude.staticLib //
+      prelude.staticLib ⫽ 
         { name = "linecount"
         , src = [ "lines.dats" ]
         , libTarget = "target/lib/liblinecount.a"
         }
     ]
   , clib = prelude.mapPlainDeps [ "unistring" ]
+  , dynLink = False
   }
