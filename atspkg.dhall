@@ -1,8 +1,8 @@
-let prelude = https://raw.githubusercontent.com/vmchale/atspkg/master/ats-pkg/dhall/atspkg-prelude.dhall
+let prelude = http://hackage.haskell.org/package/ats-pkg-3.0.0.11/src/dhall/atspkg-prelude.dhall
 
-in prelude.default ⫽ 
-  { test = 
-    [ prelude.bin ⫽ 
+in prelude.default ⫽
+  { test =
+    [ prelude.bin ⫽
       { src = "test/test.dats"
       , target = "target/test"
       , libs = [ "unistring" ]
@@ -10,7 +10,7 @@ in prelude.default ⫽
     ]
   , libraries =
     [
-      prelude.staticLib ⫽ 
+      prelude.staticLib ⫽
         { name = "linecount"
         , src = [ "lines.dats" ]
         , libTarget = "target/lib/liblinecount.a"
