@@ -11,15 +11,10 @@
 staload UN = "prelude/SATS/unsafe.sats"
 staload "libats/libc/SATS/stdio.sats"
 
-%{^
-extern void *rawmemchr(const void *s, int c);
-#define atslib_rawmemchr rawmemchr
-%}
-
 extern
-fun rawmemchr {l:addr}{m:int}(pf : bytes_v(l, m) | p : ptr(l), c : int) :
-  [ l2 : addr | l+m > l2 ] (bytes_v(l, l2-l), bytes_v(l2, l+m-l2) | ptr(l2)) =
-  "mac#atslib_rawmemchr"
+fun memchr {l:addr}{m:int}(pf : bytes_v(l, m) | p : ptr(l), c : int, sz : size_t) :
+  [ l2 : addr | l+m > l2 ] (bytes_v(l, l2-l), bytes_v(l2, l+m-l2)| ptr(l2)) =
+  "mac#"
 
 #define BUFSZ (32*1024)
 
@@ -40,7 +35,7 @@ fun wclbuf {l:addr}{n:int} (pf : !bytes_v(l, n) | p : ptr(l), pz : ptr, c : int,
 
 implement wclbuf (pf | p, pz, c, res) =
   let
-    val (pf1, pf2 | p2) = rawmemchr(pf | p, c)
+    val (pf1, pf2 | p2) = memchr(pf | p, c, i2sz(BUFSZ))
   in
     if p2 < pz then
       let
