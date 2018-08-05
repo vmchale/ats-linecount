@@ -12,7 +12,7 @@ staload UN = "prelude/SATS/unsafe.sats"
 staload "libats/libc/SATS/stdio.sats"
 
 extern
-fun memchr {l:addr}{m:int}(pf : bytes_v(l, m) | p : ptr(l), c : int, sz : size_t) :
+fun memchr {l:addr}{m:int}(pf : bytes_v(l, m) | p : ptr(l), c : char, sz : size_t) :
   [ l2 : addr | l+m > l2 ] (bytes_v(l, l2-l), bytes_v(l2, l+m-l2)| ptr(l2)) =
   "mac#"
 
@@ -30,7 +30,7 @@ implement freadc (pf | inp, p, c) =
   end
 
 extern
-fun wclbuf {l:addr}{n:int} (pf : !bytes_v(l, n) | p : ptr(l), pz : ptr, c : int, res : int) :
+fun wclbuf {l:addr}{n:int} (pf : !bytes_v(l, n) | p : ptr(l), pz : ptr, c : char, res : int) :
   int
 
 implement wclbuf (pf | p, pz, c, res) =
@@ -55,13 +55,13 @@ implement wclbuf (pf | p, pz, c, res) =
   end
 
 extern
-fun wclfil {l:addr} (pf : !bytes_v(l, BUFSZ) | inp : FILEref, p : ptr(l), c : int) : int
+fun wclfil {l:addr} (pf : !bytes_v(l, BUFSZ) | inp : FILEref, p : ptr(l), c : char) : int
 
 implement wclfil {l} (pf | inp, p, c) =
   let
-    fun loop(pf : !bytes_v(l, BUFSZ) | inp : FILEref, p : ptr(l), c : int, res : int) : int =
+    fun loop(pf : !bytes_v(l, BUFSZ) | inp : FILEref, p : ptr(l), c : char, res : int) : int =
       let
-        val n = freadc(pf | inp, p, $UN.cast{char}(c))
+        val n = freadc(pf | inp, p, c)
       in
         if n > 0 then
           let
@@ -82,7 +82,7 @@ fn count_char(s : string, c : char) : int =
     var inp: FILEref = fopen_ref_exn(s, file_mode_r)
     val (pfat, pfgc | p) = malloc_gc(g1i2u(BUFSZ))
     prval () = pfat := b0ytes2bytes_v(pfat)
-    var res = wclfil(pfat | inp, p, $UN.cast2int(c))
+    var res = wclfil(pfat | inp, p, c)
     val () = mfree_gc(pfat, pfgc | p)
     val _ = fclose_exn(inp)
   in
