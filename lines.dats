@@ -18,10 +18,7 @@ fun memchr {l:addr}{m:int}(pf : bytes_v(l, m) | p : ptr(l), c : char, sz : size_
 
 #define BUFSZ (32*1024)
 
-extern
-fun freadc {l:addr} (pf : !bytes_v(l, BUFSZ) | inp : FILEref, p : ptr(l), c : char) : size_t
-
-implement freadc (pf | inp, p, c) =
+fn freadc {l:addr}(pf : !bytes_v(l, BUFSZ) | inp : FILEref, p : ptr(l), c : char) : size_t =
   let
     var n = $extfcall(size_t, "fread", p, sizeof<char>, BUFSZ - 1, inp)
     val () = $UN.ptr0_set<char>(ptr_add<char>(p, n), c)
@@ -29,11 +26,8 @@ implement freadc (pf | inp, p, c) =
     n
   end
 
-extern
-fun wclbuf {l:addr}{n:int} (pf : !bytes_v(l, n) | p : ptr(l), pz : ptr, c : char, res : int) :
-  int
-
-implement wclbuf (pf | p, pz, c, res) =
+fun wclbuf {l:addr}{n:int}(pf : !bytes_v(l, n) | p : ptr(l), pz : ptr, c : char, res : int) :
+  int =
   let
     val (pf1, pf2 | p2) = memchr(pf | p, c, i2sz(BUFSZ))
   in
@@ -54,10 +48,7 @@ implement wclbuf (pf | p, pz, c, res) =
       end
   end
 
-extern
-fun wclfil {l:addr} (pf : !bytes_v(l, BUFSZ) | inp : FILEref, p : ptr(l), c : char) : int
-
-implement wclfil {l} (pf | inp, p, c) =
+fn wclfil {l:addr}(pf : !bytes_v(l, BUFSZ) | inp : FILEref, p : ptr(l), c : char) : int =
   let
     fun loop(pf : !bytes_v(l, BUFSZ) | inp : FILEref, p : ptr(l), c : char, res : int) : int =
       let
@@ -90,19 +81,19 @@ fn count_char(s : string, c : char) : int =
   end
 
 extern
-fun utf_bounded_length(s : !Strptr1, n : size_t) : size_t =
+fn utf_bounded_length(s : !Strptr1, n : size_t) : size_t =
   "mac#u8_mbsnlen"
 
 extern
-fun utf_bytes(s : !Strptr1) : size_t =
+fn utf_bytes(s : !Strptr1) : size_t =
   "mac#u8_strlen"
 
 // Takes as an argument the file path.
 extern
-fun line_count(string) : int =
+fn line_count(string) : int =
   "mac#"
 
-fun utf_length(s : !Strptr1) : size_t =
+fn utf_length(s : !Strptr1) : size_t =
   let
     var n = utf_bytes(s)
   in
