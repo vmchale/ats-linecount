@@ -1,10 +1,10 @@
-let prelude = http://hackage.haskell.org/package/ats-pkg-3.0.0.11/src/dhall/atspkg-prelude.dhall
+let prelude = http://hackage.haskell.org/package/ats-pkg/src/dhall/atspkg-prelude.dhall
 
 in prelude.default ⫽
   { test =
     [ prelude.bin ⫽
       { src = "test/test.dats"
-      , target = "target/test"
+      , target = "${prelude.atsProject}/test"
       , libs = [ "unistring" ]
       }
     ]
@@ -13,7 +13,7 @@ in prelude.default ⫽
       prelude.staticLib ⫽
         { name = "linecount"
         , src = [ "lines.dats" ]
-        , libTarget = "target/lib/liblinecount.a"
+        , libTarget = "${prelude.atsProject}/lib/liblinecount.a"
         }
     ]
   , clib = prelude.mapPlainDeps [ "unistring" ]
